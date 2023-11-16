@@ -2,18 +2,23 @@ import os
 
 from selene import browser, have, be
 import tests
+from qaguru_pageobjects.model.pages.registration_page import RegistrationPage
 
 
-def test_fill_all_form(browser_management):
-    browser.open('https://demoqa.com/automation-practice-form')
+def test_student_registration_form():
+    registration_page = RegistrationPage()
+    registration_page.select_student_gender = RegistrationPage.SelectStudentGender
+    registration_page.open()
+
     '''
     WHEN
     '''
-    browser.element('#firstName').should(be.blank).type('Semen')
-    browser.element('#lastName').should(be.blank).type('Fedorov')
-    browser.element('#userEmail-wrapper #userEmail').type('fedorovedorov@gmail.com')
-    browser.element('[name="gender"][value="Male"]+label').click()
-    browser.element('#userNumber').should(be.blank).type('8811656731')
+
+    registration_page.fill_first_name('Semen')
+    registration_page.fill_last_name('Fedorov')
+    registration_page.fill_student_email('fedorovedorov@gmail.com')
+    registration_page.select_student_gender.male()
+    registration_page.fill_student_phone_number('8811656731')
 
     browser.element('#dateOfBirthInput').click()
     browser.element('.react-datepicker__month-select').send_keys('November')
