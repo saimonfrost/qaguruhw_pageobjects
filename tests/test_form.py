@@ -3,7 +3,7 @@ import allure
 
 
 @allure.title("Successful fill form")
-def test_student_registration_form(setup_browser):
+def test_student_registration_form(browser_setup):
     registration_page = RegistrationPage()
     registration_page.select_student_gender = RegistrationPage.SelectStudentGender
     registration_page.select_hobbies = RegistrationPage.SelectHobbies
