@@ -2,12 +2,12 @@ from qaguru_pageobjects.model.pages.registration_page import RegistrationPage
 import allure
 
 
-def test_student_registration_form():
+@allure.title("Successful fill form")
+def test_student_registration_form(setup_browser):
     registration_page = RegistrationPage()
     registration_page.select_student_gender = RegistrationPage.SelectStudentGender
     registration_page.select_hobbies = RegistrationPage.SelectHobbies
-    with allure.step("Открыть страницу регистрации студента"):
-        registration_page.open()
+    registration_page.open()
 
     '''
     WHEN
@@ -26,6 +26,8 @@ def test_student_registration_form():
         registration_page.fill_state('Uttar Pradesh')
         registration_page.fill_city('Agra')
         registration_page.submit()
+
+    with allure.step("Проверить правильность заполняемой формы"):
         registration_page.should_have_registered('Semen Fedorov', 'fedorovedorov@gmail.com',
                                                  'Male', '8811656731', '09 November,2023',
                                                  'Maths', 'Reading', 'godot.png',
